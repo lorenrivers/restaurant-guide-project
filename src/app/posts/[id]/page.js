@@ -17,13 +17,12 @@ FROM posts JOIN comments ON posts.id = comments.postIdRespondedTo WHERE id = ${p
 FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${params.id}`
   ).rows[0];
 
-  //function to handle inserting and displaying comments into the commments table (linked to post id).
   async function handleSaveComment(formData) {
     "use server";
 
     const comment = formData.get("comment");
 
-    await sql`INSERT INTO comments (postIdRespondedTo, comment) VALUES (${params.id}, ${comment})`;
+    await sql`INSERT INTO comments (postIdRespondedTo, comment) VALUES (${params.id}, ${comment})`; //inserts the post id to the comments table
 
     revalidatePath(`/posts/${params.id}`);
     redirect(`/posts/${params.id}`);

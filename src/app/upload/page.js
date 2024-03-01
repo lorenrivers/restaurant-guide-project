@@ -3,7 +3,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export default async function UploadPage() {
-  const restaurantTypes = await sql`SELECT * FROM resTypes`; //making it async means doesn't return empty array. Adding .rows accesses array data needed when console logged. Having this code outside of the function it is in makes it return undefined.
+  //fetch categories data to display in drop down
+  let restaurantTypes = await sql`SELECT * FROM resTypes`;
 
   async function handleSavePost(formData) {
     "use server";
