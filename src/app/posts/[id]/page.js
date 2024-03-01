@@ -8,8 +8,14 @@ export default async function PostIdPage({ params }) {
 
   //join posts and comments together to map through all comments related to post id.
   const postsAndComments =
-    await sql`SELECT posts.id, posts.name, posts.description, posts.location, comments.postIdRespondedTo, comments.comment, comments.comment_id
+    await sql`SELECT posts.id, posts.name, posts.description, posts.location, posts.resType_id, comments.postIdRespondedTo, comments.comment, comments.comment_id
 FROM posts JOIN comments ON posts.id = comments.postIdRespondedTo WHERE id = ${params.id}`;
+
+  //join posts and categories (resTypes) together to display the category for the specific post.
+  const postsAndCategories = (
+    await sql`SELECT posts.id, posts.name, posts.description, posts.location, posts.resType_id, resTypes.type_id, resTypes.resType
+FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${params.id}`
+  ).rows[0];
 
   //function to handle inserting and displaying comments into the commments table (linked to post id).
   async function handleSaveComment(formData) {
@@ -28,6 +34,7 @@ FROM posts JOIN comments ON posts.id = comments.postIdRespondedTo WHERE id = ${p
       <h2>{post.name}</h2>
       <p>{post.description}</p>
       <p>{post.location}</p>
+      <p>{postsAndCategories.restype}</p>
       <form action={handleSaveComment}>
         <label htmlFor="comment">Add comment:</label>
         <textarea

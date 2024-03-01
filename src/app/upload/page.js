@@ -2,7 +2,9 @@ import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export default function UploadPage() {
+export default async function UploadPage() {
+  const restaurantTypes = await sql`SELECT * FROM resTypes`; //making it async means doesn't return empty array. Adding .rows accesses array data needed when console logged. Having this code outside of the function it is in makes it return undefined.
+
   async function handleSavePost(formData) {
     "use server";
 
@@ -10,7 +12,10 @@ export default function UploadPage() {
     const description = formData.get("description");
     const location = formData.get("location");
 
-    await sql`INSERT INTO posts (name, description, location) VALUES (${name}, ${description}, ${location})`;
+    const restaurantType = formData.get("resType");
+
+    const postResult =
+      await sql`INSERT INTO posts (name, description, location, resType_id) VALUES (${name}, ${description}, ${location}, ${restaurantType})`;
 
     revalidatePath("/posts");
     redirect("/posts");
@@ -39,6 +44,14 @@ export default function UploadPage() {
           name="location"
           placeholder="Enter the location of the restaurant"
         />
+        <label htmlFor="resType">Type of Restaurant:</label>
+        <select id="resType" name="resType">
+          {restaurantTypes.rows.map((restaurantType) => (
+            <option value={restaurantType.type_id} key={restaurantType.type_id}>
+              {restaurantType.restype}
+            </option>
+          ))}
+        </select>
         <button type="submit">Upload</button>
       </form>
     </div>
