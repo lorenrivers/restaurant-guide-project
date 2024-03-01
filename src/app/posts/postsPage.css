@@ -1,0 +1,31 @@
+h3 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.sort-btn {
+  margin: 10px;
+  background-color: teal;
+  color: white;
+  padding: 5px;
+  font-size: 0.7rem;
+}
+
+.sort-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post-container {
+  margin: 10px;
+  padding: 10px;
+}
+
+.readmore-btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 40px;
+  background-color: teal;
+  color: white;
+  padding: 5px;
+}

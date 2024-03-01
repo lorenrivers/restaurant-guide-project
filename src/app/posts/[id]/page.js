@@ -1,6 +1,8 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import "@/app/posts/[id]/postIdPage.css";
+// import DeleteCommentsButton from "@/app/Components/DeleteCommentsButton";
 
 export default async function PostIdPage({ params }) {
   //displays the information related to the specific post id from the posts table. Have to use this to display the post content for the specific post id.
@@ -30,11 +32,11 @@ FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${par
 
   return (
     <div>
-      <h2>{post.name}</h2>
-      <p>{post.description}</p>
-      <p>{post.location}</p>
-      <p>{postsAndCategories.restype}</p>
-      <form action={handleSaveComment}>
+      <h2 className="u">{post.name}</h2>
+      <p className="u">{post.description}</p>
+      <p className="u border">{post.location}</p>
+      <p className="u border">{postsAndCategories.restype}</p>
+      <form action={handleSaveComment} className="u">
         <label htmlFor="comment">Add comment:</label>
         <textarea
           id="comment"
@@ -44,8 +46,12 @@ FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${par
         <button type="submit">Upload</button>
         <h3>Comments</h3>
         {postsAndComments.rows.map((postsAndComment) => (
-          <div key={postsAndComment.comment_id}>
+          <div key={postsAndComment.comment_id} className="u">
             <p>{postsAndComment.comment}</p>
+            {/* <DeleteCommentsButton
+              commentId={postsAndComment.comment_id}
+              params={params.id}
+            /> */}
           </div>
         ))}
       </form>

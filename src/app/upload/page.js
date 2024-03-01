@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import "@/app/upload/upload.css";
 
 export default async function UploadPage() {
   //fetch categories data to display in drop down
@@ -25,7 +26,7 @@ export default async function UploadPage() {
   return (
     <div>
       <h2>Upload a Restaurant</h2>
-      <form action={handleSavePost}>
+      <form action={handleSavePost} className="form-container">
         <label htmlFor="name">Name:</label>
         <input
           id="name"

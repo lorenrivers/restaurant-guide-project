@@ -1,0 +1,10 @@
+.border {
+  border: 1px dashed black;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 10px;
+}
+
+.u {
+  margin: 10px;
+}
