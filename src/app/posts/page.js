@@ -1,7 +1,18 @@
 import { sql } from "@vercel/postgres";
 import Link from "next/link";
 import DeletePostsButton from "@/app/Components/DeletePostsButton";
+import { Playfair_Display } from "next/font/google";
 import "@/app/posts/postsPage.css";
+
+const playfairDisplay500 = Playfair_Display({
+  weight: "500",
+  subsets: ["latin"],
+});
+
+const playfairDisplay400 = Playfair_Display({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default async function PostsPage({ searchParams }) {
   const posts = await sql`SELECT * FROM posts`;
@@ -12,7 +23,7 @@ export default async function PostsPage({ searchParams }) {
 
   return (
     <div>
-      <h2>Posts</h2>
+      <h2 className={playfairDisplay500.className}>Posts</h2>
       <div className="sort-container">
         <Link href="/posts?sort=asc" className="sort-btn">
           Sort ascending
@@ -23,7 +34,7 @@ export default async function PostsPage({ searchParams }) {
       </div>
       {posts.rows.map((post) => (
         <div key={post.id} className="post-container">
-          <h3>{post.name}</h3>
+          <h3 className={playfairDisplay400.className}>{post.name}</h3>
           <Link href={`/posts/${post.id}`} className="readmore-btn">
             Read more
           </Link>

@@ -8,3 +8,13 @@
 .u {
   margin: 10px;
 }
+
+.comments-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category {
+  font-size: 12px;
+}

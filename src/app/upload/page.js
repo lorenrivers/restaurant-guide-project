@@ -1,7 +1,18 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { Playfair_Display } from "next/font/google";
+import UploadButton from "../Components/UploadButton";
 import "@/app/upload/upload.css";
+
+const playfairDisplay500 = Playfair_Display({
+  weight: "500",
+  subsets: ["latin"],
+});
+const playfairDisplay400 = Playfair_Display({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default async function UploadPage() {
   //fetch categories data to display in drop down
@@ -25,28 +36,36 @@ export default async function UploadPage() {
 
   return (
     <div>
-      <h2>Upload a Restaurant</h2>
+      <h2 className={playfairDisplay500.className}>Upload a Restaurant</h2>
       <form action={handleSavePost} className="form-container">
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name" className={playfairDisplay400.className}>
+          Name:
+        </label>
         <input
           id="name"
           name="name"
           type="text"
-          placeholder="Enter Restaurant Name"
+          placeholder="Enter the name of the restaurant"
         />
-        <label htmlFor="description">Description:</label>
+        <label htmlFor="description" className={playfairDisplay400.className}>
+          Description:
+        </label>
         <textarea
           id="description"
           name="description"
           placeholder="Enter a description of the restaurant"
         />
-        <label htmlFor="location">Location:</label>
+        <label htmlFor="location" className={playfairDisplay400.className}>
+          Location:
+        </label>
         <input
           id="location"
           name="location"
           placeholder="Enter the location of the restaurant"
         />
-        <label htmlFor="resType">Type of Restaurant:</label>
+        <label htmlFor="resType" className={playfairDisplay400.className}>
+          Type of Restaurant:
+        </label>
         <select id="resType" name="resType">
           {restaurantTypes.rows.map((restaurantType) => (
             <option value={restaurantType.type_id} key={restaurantType.type_id}>
@@ -54,7 +73,7 @@ export default async function UploadPage() {
             </option>
           ))}
         </select>
-        <button type="submit">Upload</button>
+        <UploadButton />
       </form>
     </div>
   );
