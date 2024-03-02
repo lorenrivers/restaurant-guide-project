@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import UploadButton from "@/app/Components/UploadButton";
 import { Playfair_Display } from "next/font/google";
 import "@/app/posts/[id]/postIdPage.css";
-// import DeleteCommentsButton from "@/app/Components/DeleteCommentsButton";
 
 const playfairDisplay500 = Playfair_Display({
   weight: "500",
@@ -59,10 +58,6 @@ FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${par
         {postsAndComments.rows.map((postsAndComment) => (
           <div key={postsAndComment.comment_id} className="border">
             <p>{postsAndComment.comment}</p>
-            {/* <DeleteCommentsButton
-              commentId={postsAndComment.comment_id}
-              params={params.id}
-            /> */}
           </div>
         ))}
       </div>
