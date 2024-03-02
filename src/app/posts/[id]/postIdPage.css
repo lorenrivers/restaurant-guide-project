@@ -42,3 +42,18 @@
   padding: 10px;
   border-radius: 4px;
 }
+
+@media (min-width: 600px) {
+  .page-container {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  .comments-form {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .id-info {
+    gap: 10px;
+  }
+}

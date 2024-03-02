@@ -38,7 +38,7 @@ FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${par
   }
 
   return (
-    <div>
+    <div className="page-container">
       <div className="u id-info">
         <h2 className={playfairDisplay500.className}>{post.name}</h2>
         <p className="border category">{postsAndCategories.restype}</p>
