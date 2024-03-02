@@ -1,7 +1,7 @@
 import { Playfair_Display } from "next/font/google";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import NavBar from "./Components/NavBar";
 
 const playfairDisplay900 = Playfair_Display({
   weight: "900",
@@ -24,11 +24,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <header>
           <h1 className={playfairDisplay900.className}>Taste Trekkers Guide</h1>
-          <nav className={inter.className}>
-            <Link href="/">Home</Link>
-            <Link href="/posts">Posts</Link>
-            <Link href="/upload">Upload a Restaurant</Link>
-          </nav>
+          <NavBar />
         </header>
         {children}
         <footer>
