@@ -2,8 +2,14 @@ import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import UploadButton from "@/app/Components/UploadButton";
+import { Playfair_Display } from "next/font/google";
 import "@/app/posts/[id]/postIdPage.css";
 // import DeleteCommentsButton from "@/app/Components/DeleteCommentsButton";
+
+const playfairDisplay500 = Playfair_Display({
+  weight: "500",
+  subsets: ["latin"],
+});
 
 export default async function PostIdPage({ params }) {
   //displays the information related to the specific post id from the posts table.
@@ -33,11 +39,12 @@ FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${par
 
   return (
     <div>
-      <h2 className="u">{post.name}</h2>
-      <p className="u border category">{postsAndCategories.restype}</p>
-      <p className="u">{post.description}</p>
-      <p className="u ">📍 {post.location}</p>
-
+      <div className="u id-info">
+        <h2 className={playfairDisplay500.className}>{post.name}</h2>
+        <p className="border category">{postsAndCategories.restype}</p>
+        <p>{post.description}</p>
+        <p>📍 {post.location}</p>
+      </div>
       <form action={handleSaveComment} className="u comments-form">
         <label htmlFor="comment">Add comment:</label>
         <textarea
@@ -47,16 +54,18 @@ FROM posts JOIN resTypes ON posts.resType_id = resTypes.type_id WHERE id = ${par
         />
         <UploadButton />
       </form>
-      <h3 className="u">Comments</h3>
-      {postsAndComments.rows.map((postsAndComment) => (
-        <div key={postsAndComment.comment_id} className="u border">
-          <p>{postsAndComment.comment}</p>
-          {/* <DeleteCommentsButton
+      <div className="u comments-container">
+        <h3 className={playfairDisplay500.className}>Comments</h3>
+        {postsAndComments.rows.map((postsAndComment) => (
+          <div key={postsAndComment.comment_id} className="border">
+            <p>{postsAndComment.comment}</p>
+            {/* <DeleteCommentsButton
               commentId={postsAndComment.comment_id}
               params={params.id}
             /> */}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

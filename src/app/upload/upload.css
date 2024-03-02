@@ -3,4 +3,13 @@
   flex-direction: column;
   gap: 10px;
   margin: 5px;
+  padding: 10px;
+}
+
+.upload-btn {
+  background-color: teal;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
 }
