@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import UploadButton from "@/app/Components/UploadButton";
 import { Playfair_Display } from "next/font/google";
+import { notFound } from "next/navigation";
 import "@/app/posts/[id]/postIdPage.css";
 
 const playfairDisplay500 = Playfair_Display({
@@ -13,6 +14,10 @@ const playfairDisplay500 = Playfair_Display({
 export default async function PostIdPage({ params }) {
   //displays the information related to the specific post id from the posts table.
   const post = (await sql`SELECT * FROM posts WHERE id = ${params.id}`).rows[0];
+
+  if (!post) {
+    notFound();
+  }
 
   //map through all comments related to post id.
   const postsAndComments =
