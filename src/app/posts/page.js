@@ -15,7 +15,11 @@ const playfairDisplay400 = Playfair_Display({
 });
 
 export default async function PostsPage({ searchParams }) {
-  const posts = await sql`SELECT * FROM posts`;
+  try {
+    const posts = await sql`SELECT * FROM posts`;
+  } catch (err) {
+    console.log(error);
+  }
 
   if (searchParams.sort === "desc") {
     posts.rows.reverse();
